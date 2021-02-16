@@ -1,0 +1,29 @@
+{
+    "name": "laravelroad/jetgen",
+    "description": "crud generator to laravel jetstream",
+    "require": {
+        "illuminate/support": "^8.27",
+        "illuminate/console": "^8.27"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^6.12",
+        "phpunit/phpunit": "^9.5"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "LaravelRoad\\JetGen\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaravelRoad\\JetGen\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Pedro Augusto",
+            "email": "pams.pedro@gmail.com"
+        }
+    ]
+}
