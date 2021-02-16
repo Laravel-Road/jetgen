@@ -5,6 +5,8 @@ namespace LaravelRoad\JetGen\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Str;
+use LaravelRoad\JetGen\Parsers\SchemaParser;
+use LaravelRoad\JetGen\SyntaxBuilders\MigrationSyntaxBuilder;
 
 class MigrationCommand extends Command
 {
@@ -53,6 +55,12 @@ class MigrationCommand extends Command
         $content = $this
             ->filesystem
             ->get(__DIR__ . '/../../stubs/database/migrations/migration.php.stub');
+
+        $schema = (new SchemaParser())->parse($this->option('schema'));
+
+        $schema = (new MigrationSyntaxBuilder())->create($schema);
+
+        $content = str_replace('{{schema_up}}', $schema, $content);
 
         $content = str_replace(
             ['{{tableName}}', '{{className}}'],
