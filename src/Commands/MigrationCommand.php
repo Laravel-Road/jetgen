@@ -2,13 +2,10 @@
 
 namespace LaravelRoad\JetGen\Commands;
 
-use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
 use LaravelRoad\JetGen\Parsers\SchemaParser;
 use LaravelRoad\JetGen\SyntaxBuilders\MigrationSyntaxBuilder;
 
-class MigrationCommand extends Command
+class MigrationCommand extends GeneratorCommand
 {
     protected $signature = 'jetgen:migration
         {name : resource name (singular)}
@@ -16,41 +13,7 @@ class MigrationCommand extends Command
 
     protected $description = 'Create new migration class and apply schema at the same time';
 
-    protected $filesystem;
-
-    public function __construct(Filesystem $filesystem)
-    {
-        parent::__construct();
-
-        $this->filesystem = $filesystem;
-    }
-
-    public function handle(): void
-    {
-        // verificar se arquivo nao existe
-        if ($this->alreadyExists()) {
-            $this->warn('Existem migration com o mesmo nome de classe');
-            return;
-        }
-
-        // gerar o arquivo
-        $this->generate();
-
-        // exibir saida
-        $this->line("<info>Created {$this->className()}:</info> {$this->fileName()}");
-
-    }
-
-    public function generate()
-    {
-        // criar diretorio se nao existir
-        $this->makeDirectory();
-
-        // salvar o arquivo
-        $this->filesystem->put($this->path(), $this->compileStub());
-    }
-
-    public function compileStub()
+    public function compileStub(): string
     {
         $content = $this
             ->filesystem
@@ -71,14 +34,14 @@ class MigrationCommand extends Command
         return $content;
     }
 
-    private function path(): string
+    protected function path(): string
     {
         $filename = $this->fileName();
 
         return database_path("migrations/{$filename}");
     }
 
-    private function alreadyExists(): bool
+    protected function alreadyExists(): bool
     {
         $files = $this->filesystem->glob(database_path('migrations/*.php'));
 
@@ -89,14 +52,7 @@ class MigrationCommand extends Command
         return class_exists($this->className());
     }
 
-    private function makeDirectory()
-    {
-        if (! $this->filesystem->isDirectory(dirname($this->path()))) {
-            $this->filesystem->makeDirectory(dirname($this->path()), 0755, true);
-        }
-    }
-
-    private function fileName(): string
+    protected function fileName(): string
     {
         return $filename = sprintf(
             '%s_create_%s_table',
@@ -105,47 +61,7 @@ class MigrationCommand extends Command
         );
     }
 
-    private function resourceName()
-    {
-        return Str::of($this->argument('name'))
-            ->lower()
-            ->singular();
-    }
-
-    private function tableName()
-    {
-        return Str::of($this->argument('name'))
-            ->snake()
-            ->plural();
-    }
-
-    private function modelName()
-    {
-        return $this
-            ->resourceName()
-            ->studly();
-    }
-
-    private function controllerName()
-    {
-        return sprintf('%sController', $this->modelName());
-    }
-
-    private function routeName()
-    {
-        return $this
-            ->tableName()
-            ->kebab();
-    }
-
-    private function paramName()
-    {
-        return $this
-            ->modelName()
-            ->kebab();
-    }
-
-    private function className()
+    private function className(): string
     {
         return sprintf('Create%sTable', $this->tableName()->studly());
     }

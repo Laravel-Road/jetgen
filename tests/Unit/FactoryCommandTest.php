@@ -24,7 +24,7 @@ class FactoryCommandTest extends TestCase
                 'name' => 'post',
                 '--schema' => 'title:string(150), subtitle:string:nullable, content:text'
             ])
-            ->expectsOutput('Existe factory com o mesmo nome.')
+            ->expectsOutput('Already Exists!')
             ->assertExitCode(0);
 
         unlink($path);
@@ -43,7 +43,8 @@ class FactoryCommandTest extends TestCase
                 'name' => 'post',
                 '--schema' => 'title:string(150), subtitle:string:nullable, content:text'
             ])
-            ->expectsOutput("Created {$classname}: {$filename}")
+            ->expectsOutput("Creating File: {$filename}")
+            ->expectsOutput("Created File: {$filename}")
             ->assertExitCode(0);
 
         unlink(database_path("factories/{$filename}"));

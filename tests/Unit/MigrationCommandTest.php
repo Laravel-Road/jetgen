@@ -25,7 +25,8 @@ class MigrationCommandTest extends TestCase
                 'name' => Str::singular($name),
                 '--schema' => 'title:string(150), subtitle:string:nullable, content:text'
             ])
-            ->expectsOutput("Created CreatePostsTable: {$filename}")
+            ->expectsOutput("Creating File: {$filename}")
+            ->expectsOutput("Created File: {$filename}")
             ->assertExitCode(0);
 
         unlink(database_path("migrations/{$filename}"));
