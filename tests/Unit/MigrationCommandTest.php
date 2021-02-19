@@ -15,7 +15,7 @@ class MigrationCommandTest extends TestCase
     public function canRunMigrationCommand()
     {
         $filename = sprintf(
-            '%s_create_%s_table',
+            '%s_create_%s_table.php',
             now()->format('Y_H_d_His'),
             Str::snake($name = 'posts'),
         );

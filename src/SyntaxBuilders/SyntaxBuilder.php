@@ -8,8 +8,6 @@ abstract class SyntaxBuilder
 
     abstract protected function constructSchema(array $schema): string;
 
-    abstract protected function into(string $wrapper): string;
-
     abstract protected function getSchemaWrapper(): string;
 
     public function create(array $schema): string
@@ -29,5 +27,10 @@ abstract class SyntaxBuilder
         $this->template = $template;
 
         return $this;
+    }
+
+    protected function into(string $wrapper): string
+    {
+        return str_replace('{{column}}', $this->template, $wrapper);
     }
 }

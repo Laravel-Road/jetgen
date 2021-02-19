@@ -13,7 +13,11 @@ class {{className}} extends Migration
      */
     public function up()
     {
-        {{schema_up}}
+        Schema::create('{{tableName}}', function (Blueprint $table) {
+            $table->id();
+            {{column}}
+            $table->timestamps();
+        });
     }
 
     /**

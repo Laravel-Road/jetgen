@@ -15,15 +15,9 @@ class MigrationCommand extends GeneratorCommand
 
     public function compileStub(): string
     {
-        $content = $this
-            ->filesystem
-            ->get(__DIR__ . '/../../stubs/database/migrations/migration.php.stub');
-
         $schema = (new SchemaParser())->parse($this->option('schema'));
 
-        $schema = (new MigrationSyntaxBuilder())->create($schema);
-
-        $content = str_replace('{{schema_up}}', $schema, $content);
+        $content = (new MigrationSyntaxBuilder())->create($schema);
 
         $content = str_replace(
             ['{{tableName}}', '{{className}}'],
@@ -55,7 +49,7 @@ class MigrationCommand extends GeneratorCommand
     protected function fileName(): string
     {
         return $filename = sprintf(
-            '%s_create_%s_table',
+            '%s_create_%s_table.php',
             now()->format('Y_H_d_His'),
             $this->tableName(),
         );
