@@ -2,8 +2,6 @@
 
 namespace LaravelRoad\JetGen\Commands;
 
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
 use LaravelRoad\JetGen\Parsers\SchemaParser;
 use LaravelRoad\JetGen\SyntaxBuilders\FactorySyntaxBuilder;
 
