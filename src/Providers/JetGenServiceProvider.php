@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 use LaravelRoad\JetGen\Commands\FactoryCommand;
 use LaravelRoad\JetGen\Commands\MigrationCommand;
+use LaravelRoad\JetGen\Commands\ModelCommand;
 
 class JetGenServiceProvider extends ServiceProvider implements DeferrableProvider
 {
@@ -29,6 +30,7 @@ class JetGenServiceProvider extends ServiceProvider implements DeferrableProvide
             $this->commands([
                 MigrationCommand::class,
                 FactoryCommand::class,
+                ModelCommand::class,
             ]);
         }
     }
@@ -38,6 +40,7 @@ class JetGenServiceProvider extends ServiceProvider implements DeferrableProvide
         return [
             MigrationCommand::class,
             FactoryCommand::class,
+            ModelCommand::class,
         ];
     }
 }
