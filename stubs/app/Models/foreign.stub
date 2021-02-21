@@ -1,0 +1,5 @@
+
+    public function {{foreignClass}}()
+    {
+        return $this->belongsTo({{foreignModel}}::class);
+    }

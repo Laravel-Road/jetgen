@@ -81,7 +81,11 @@ class SchemaParser
             throw new \InvalidArgumentException("Column Type: $type not available");
         }
 
-        return compact('name', 'type', 'arguments', 'options');
+        $foreign = in_array($type, config('jetgen.foreign_types'))
+            ? (string) Str::of(str_replace('_id', '', $name))->studly()->singular()
+            : null;
+
+        return compact('name', 'type', 'arguments', 'options', 'foreign');
     }
 
     /**

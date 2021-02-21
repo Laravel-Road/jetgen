@@ -61,7 +61,7 @@ class ModelCommandTest extends TestCase
         $parameters = [
             'jetgen:model',
             'name' => 'post',
-            '--schema' => 'title:string(150), subtitle:string:nullable, content:text'
+            '--schema' => 'title:string(150), subtitle:string:nullable, content:text, user_id:foreignId:constrained'
         ];
 
         $input = new ArrayInput($parameters, $modelCommand->getDefinition());
