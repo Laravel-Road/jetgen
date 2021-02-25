@@ -33,7 +33,7 @@ class FactoryCommand extends GeneratorCommand
 
     protected function alreadyExists(): bool
     {
-        return $this->filesystem->exists(database_path("factories/{$this->fileName()}"));
+        return $this->filesystem->exists($this->path());
     }
 
     protected function fileName(): string
