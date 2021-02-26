@@ -71,7 +71,7 @@ class NewClassCommandTest extends TestCase
         $newClassCommand->setInput($input);
 
         $this->assertEquals(
-            file_get_contents(__DIR__ . '/../../../storage/tests/app/Http/Livewire/Post/PostNew.compiledendi'),
+            file_get_contents(__DIR__ . '/../../../storage/tests/app/Http/Livewire/Post/PostNew.compiled'),
             $newClassCommand->compileStub()
         );
     }
