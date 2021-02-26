@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Http\Livewire\{{modelName}};
+
+use App\Models\{{modelName}};
+use Livewire\Component;
+
+class {{modelName}}New extends Component
+{
+    public {{modelName}} $new{{modelName}};
+
+    public function mount({{modelName}} ${{objectName}})
+    {
+        $this->new{{modelName}} = ${{objectName}};
+    }
+
+    public function store()
+    {
+        $this->validate();
+
+        $this->new{{modelName}}->save();
+
+        $this->new{{modelName}} = new {{modelName}}();
+
+        $this->emit('created');
+    }
+
+    protected function rules()
+    {
+        return [
+            {{column}}
+        ];
+    }
+}
