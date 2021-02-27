@@ -15,9 +15,7 @@ class MigrationCommand extends GeneratorCommand
 
     public function compileStub(): string
     {
-        $schema = (new SchemaParser())->parse($this->option('schema'));
-
-        $content = (new MigrationSyntaxBuilder())->create($schema);
+        $content = (new MigrationSyntaxBuilder())->create($this->option('schema'));
 
         $content = str_replace(
             ['{{tableName}}', '{{className}}'],

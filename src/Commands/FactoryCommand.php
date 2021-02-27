@@ -15,9 +15,7 @@ class FactoryCommand extends GeneratorCommand
 
     public function compileStub(): string
     {
-        $schema = (new SchemaParser())->parse($this->option('schema'));
-
-        $content = (new FactorySyntaxBuilder())->create($schema);
+        $content = (new FactorySyntaxBuilder())->create($this->option('schema'));
 
         $content = str_replace('{{modelName}}', $this->modelName(), $content);
 

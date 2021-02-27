@@ -16,9 +16,7 @@ class NewClassCommand extends GeneratorCommand
 
     public function compileStub(): string
     {
-        $schema = (new SchemaParser())->parse($this->option('schema'));
-
-        $content = (new NewClassSyntaxBuilder())->create($schema);
+        $content = (new NewClassSyntaxBuilder())->create($this->option('schema'));
 
         $content = str_replace(
             ['{{modelName}}', '{{objectName}}'],

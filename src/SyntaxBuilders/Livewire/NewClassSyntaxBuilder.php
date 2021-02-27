@@ -16,11 +16,11 @@ class NewClassSyntaxBuilder extends SyntaxBuilder
         return file_get_contents(__DIR__ . '/../../../stubs/app/Http/Livewire/New.php.stub');
     }
 
-    protected function constructSchema(array $schema): array
+    protected function constructSchema(): array
     {
         $fields = array_map(
             fn ($field) => $this->addColumn($field),
-            $this->rejectForeign($schema)
+            $this->rejectForeign()
         );
 
         $template['column'] = implode("\n".str_repeat(' ', 12), $fields);

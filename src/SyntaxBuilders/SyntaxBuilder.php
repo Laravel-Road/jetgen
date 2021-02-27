@@ -2,24 +2,28 @@
 
 namespace LaravelRoad\JetGen\SyntaxBuilders;
 
+use LaravelRoad\JetGen\Parsers\SchemaParser;
+
 abstract class SyntaxBuilder
 {
     protected array $template;
+    protected array $schema;
 
-    abstract protected function constructSchema(array $schema): array;
+    abstract protected function constructSchema(): array;
 
     abstract protected function into(string $wrapper): string;
 
     abstract protected function getSchemaWrapper(): string;
 
-    public function create(array $schema): string
+    public function create(string $schema): string
     {
-        return $this->createSchema($schema);
+        $this->schema = (new SchemaParser())->parse($schema);
+        return $this->createSchema();
     }
 
-    protected function createSchema(array $schema): string
+    protected function createSchema(): string
     {
-        $fields = $this->constructSchema($schema);
+        $fields = $this->constructSchema();
 
         return $this->insert($fields)->into($this->getSchemaWrapper());
     }
@@ -31,13 +35,13 @@ abstract class SyntaxBuilder
         return $this;
     }
 
-    protected function rejectForeign(array $schema)
+    protected function rejectForeign()
     {
-        return array_filter($schema, fn($field) => ! array_key_exists('on', $field['options']));
+        return array_filter($this->schema, fn($field) => ! array_key_exists('on', $field['options']));
     }
 
-    protected function filterForeign(array $schema)
+    protected function filterForeign()
     {
-        array_filter($schema, fn($field) => $field['foreign']);
+        return array_filter($this->schema, fn($field) => $field['foreign']);
     }
 }

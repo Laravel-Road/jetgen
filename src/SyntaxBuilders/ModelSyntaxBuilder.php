@@ -21,14 +21,14 @@ class ModelSyntaxBuilder extends SyntaxBuilder
         return file_get_contents(__DIR__ . '/../../stubs/app/Models/foreign.stub');
     }
 
-    protected function constructSchema(array $schema): array
+    protected function constructSchema(): array
     {
-        $fields = array_map(fn ($field) => $this->addColumn($field), $schema);
+        $fields = array_map(fn ($field) => $this->addColumn($field), $this->schema);
         $template['column'] = implode("\n".str_repeat(' ', 8), $fields);
 
         $fields = array_map(
             fn ($field) => $this->addForeign($field),
-            $this->filterForeign($schema)
+            $this->filterForeign()
         );
         $template['foreign'] = implode("\n", $fields);
 
