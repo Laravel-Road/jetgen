@@ -28,7 +28,7 @@ class ModelSyntaxBuilder extends SyntaxBuilder
 
         $fields = array_map(
             fn ($field) => $this->addForeign($field),
-            array_filter($schema, fn($field) => $field['foreign'])
+            $this->filterForeign($schema)
         );
         $template['foreign'] = implode("\n", $fields);
 

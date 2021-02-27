@@ -30,4 +30,14 @@ abstract class SyntaxBuilder
 
         return $this;
     }
+
+    protected function rejectForeign(array $schema)
+    {
+        return array_filter($schema, fn($field) => ! array_key_exists('on', $field['options']));
+    }
+
+    protected function filterForeign(array $schema)
+    {
+        array_filter($schema, fn($field) => $field['foreign']);
+    }
 }

@@ -20,7 +20,7 @@ class FactorySyntaxBuilder extends SyntaxBuilder
     {
         $fields = array_map(
             fn ($field) => $this->addColumn($field),
-            array_filter($schema, fn($field) => ! array_key_exists('on', $field['options']))
+            $this->rejectForeign($schema)
         );
 
         $template['column'] = implode("\n".str_repeat(' ', 12), $fields);
