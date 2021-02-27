@@ -28,7 +28,10 @@ class PostNew extends Component
     protected function rules()
     {
         return [
-            //
+            'newPost.title' => 'required|string|max:150',
+            'newPost.subtitle' => 'nullable|string',
+            'newPost.content' => 'required|string',
+            'newPost.user_id' => 'required|integer',
         ];
     }
 }

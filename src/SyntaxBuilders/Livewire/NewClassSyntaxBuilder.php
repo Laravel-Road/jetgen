@@ -24,13 +24,45 @@ class NewClassSyntaxBuilder extends SyntaxBuilder
         );
 
         $template['column'] = implode("\n".str_repeat(' ', 12), $fields);
-        $template['column'] = '//';
 
         return $template;
     }
 
     private function addColumn(array $field): string
     {
-        return '';
+        return sprintf("'new{{modelName}}.%s' => '%s',", $field['name'], $this->getRule($field));
+    }
+
+    private function getRule(array $field): string
+    {
+        $type = '';
+
+        if (array_key_exists('nullable', $field['options'])) {
+            $type .= 'nullable|';
+        }
+
+        if (!array_key_exists('nullable', $field['options'])) {
+            $type .= 'required|';
+        }
+
+        if (in_array($field['type'], config('jetgen.string_types'))) {
+            $type .= 'string|';
+
+            if ($field['arguments']) {
+                $type .= 'max:'.$field['arguments'][0].'|';
+            }
+        }
+
+        $integerTypes = config('jetgen.integer_types');
+        array_push($integerTypes, 'foreignId');
+        if (in_array($field['type'], $integerTypes)) {
+            $type .= 'integer|';
+        }
+
+        if (in_array($field['type'], config('jetgen.float_types'))) {
+            $type .= 'numeric|';
+        }
+
+        return rtrim($type, '|');
     }
 }
