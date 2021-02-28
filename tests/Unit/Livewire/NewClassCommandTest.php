@@ -62,7 +62,7 @@ class NewClassCommandTest extends TestCase
         $newClassCommand = $this->app->make(NewClassCommand::class);
 
         $parameters = [
-            'jetgen:factory',
+            'jetgen:livewire:new-class',
             'name' => 'post',
             '--schema' => 'title:string(150), subtitle:string:nullable, content:text, user_id:foreignId:constrained'
         ];
