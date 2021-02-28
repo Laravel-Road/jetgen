@@ -2,7 +2,6 @@
 
 namespace LaravelRoad\JetGen\Commands;
 
-use LaravelRoad\JetGen\Parsers\SchemaParser;
 use LaravelRoad\JetGen\SyntaxBuilders\FactorySyntaxBuilder;
 
 class FactoryCommand extends GeneratorCommand
