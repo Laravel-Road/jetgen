@@ -40,4 +40,9 @@ trait NamingConvention
     {
         return $this->singularName()->snake();
     }
+
+    protected function viewName()
+    {
+        return $this->singularName()->kebab();
+    }
 }

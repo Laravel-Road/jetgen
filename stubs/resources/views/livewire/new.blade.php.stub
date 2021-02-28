@@ -1,0 +1,21 @@
+<div>
+    <x-jet-section-border/>
+
+    <x-jet-form-section submit="store">
+        <x-slot name="title">{{ __('Create {{modelName}}') }}</x-slot>
+
+        <x-slot name="description">{{ __('Create a new {{modelName}}. Check the mandatory fields.') }}</x-slot>
+
+        <x-slot name="form">
+{{column}}
+        </x-slot>
+
+        <x-slot name="actions">
+            <x-jet-action-message class="mr-3" on="created">
+                {{ __('{{modelName}} created.') }}
+            </x-jet-action-message>
+
+            <x-jet-button>{{ __('Create') }}</x-jet-button>
+        </x-slot>
+    </x-jet-form-section>
+</div>

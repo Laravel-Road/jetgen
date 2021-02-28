@@ -1,0 +1,9 @@
+            <div class="col-span-6 sm:col-span-4">
+                <x-jet-label for="new{{modelName}}.%s" value="{{ __('%s') }}"/>
+                <x-jet-input id="new{{modelName}}.%s"
+                             type="text"
+                             class="mt-1 block w-full"
+                             wire:model.defer="new{{modelName}}.%s"
+                             autofocus/>
+                <x-jet-input-error for="new{{modelName}}.%s" class="mt-2"/>
+            </div>

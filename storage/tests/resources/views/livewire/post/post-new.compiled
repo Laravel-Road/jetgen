@@ -1,0 +1,56 @@
+<div>
+    <x-jet-section-border/>
+
+    <x-jet-form-section submit="store">
+        <x-slot name="title">{{ __('Create Post') }}</x-slot>
+
+        <x-slot name="description">{{ __('Create a new Post. Check the mandatory fields.') }}</x-slot>
+
+        <x-slot name="form">
+            <div class="col-span-6 sm:col-span-4">
+                <x-jet-label for="newPost.title" value="{{ __('title') }}"/>
+                <x-jet-input id="newPost.title"
+                             type="text"
+                             class="mt-1 block w-full"
+                             wire:model.defer="newPost.title"
+                             autofocus/>
+                <x-jet-input-error for="newPost.title" class="mt-2"/>
+            </div>
+            <div class="col-span-6 sm:col-span-4">
+                <x-jet-label for="newPost.subtitle" value="{{ __('subtitle') }}"/>
+                <x-jet-input id="newPost.subtitle"
+                             type="text"
+                             class="mt-1 block w-full"
+                             wire:model.defer="newPost.subtitle"
+                             autofocus/>
+                <x-jet-input-error for="newPost.subtitle" class="mt-2"/>
+            </div>
+            <div class="col-span-6 sm:col-span-4">
+                <x-jet-label for="newPost.content" value="{{ __('content') }}"/>
+                <textarea id="newPost.content"
+                          class="mt-1 block w-full"
+                          wire:model.defer="newPost.content"
+                          autofocus>
+                </textarea>
+                <x-jet-input-error for="newPost.content" class="mt-2"/>
+            </div>
+            <div class="col-span-6 sm:col-span-4">
+                <x-jet-label for="newPost.user_id" value="{{ __('user_id') }}"/>
+                <x-jet-input id="newPost.user_id"
+                             type="text"
+                             class="mt-1 block w-full"
+                             wire:model.defer="newPost.user_id"
+                             autofocus/>
+                <x-jet-input-error for="newPost.user_id" class="mt-2"/>
+            </div>
+        </x-slot>
+
+        <x-slot name="actions">
+            <x-jet-action-message class="mr-3" on="created">
+                {{ __('Post created.') }}
+            </x-jet-action-message>
+
+            <x-jet-button>{{ __('Create') }}</x-jet-button>
+        </x-slot>
+    </x-jet-form-section>
+</div>
